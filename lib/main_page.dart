@@ -9,7 +9,23 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
+
 class _MainPageState extends State<MainPage> {
+  //double totalAmount = 0;
+
+  @override
+  void initState() {
+    super.initState();
+
+
+  }
+//
+//  void updateTotal(ammount) async{
+//    await setState(() {
+//
+//    });
+//  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +44,7 @@ class _MainPageState extends State<MainPage> {
           StreamBuilder<QuerySnapshot>(
             stream: firestore.snapshots(),
             builder: (context, snapshot) {
-              double totalAmount = 0;
+
               List<DataItem> dataText = [];
               final dataCollection = snapshot.data.documents;
               for (var data in dataCollection) {
@@ -36,27 +52,32 @@ class _MainPageState extends State<MainPage> {
                 final String ammount = data.data['ammount'];
                 final title = data.data['title'];
                 final date = data.data['date'];
-                totalAmount += double.parse(ammount);
+
+                //totalAmount += double.parse(ammount);
 
                 print(payee);
-                print(totalAmount);
+                //print(totalAmount);
 
                 final textWidget = DataItem(
                   dTitle: title,
                   dAmount: ammount,
                   dPayee: payee,
                   dDate: date,
-                  dTotal: totalAmount,
+                  //dTotal: totalAmount,
                 );
                 dataText.add(textWidget);
               }
               return Expanded(
-                child: ListView(
-                  children: dataText,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ListView(
+                    children: dataText,
+                  ),
                 ),
               );
             },
           ),
+          Center(child: Text('Version 0.2 (Beta) \n     © Ananthan')),
         ],
       ),
     );
@@ -73,27 +94,30 @@ class DataItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
+    return Card(color: Colors.brown,
       elevation: 5,
-      child: Column(
-        children: <Widget>[
-          Text(
-            'Title : $dTitle',
-            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-          ),
-          SizedBox(
-            height: 5,
-          ),
-          Text('Amount : $dAmount'),
-          SizedBox(
-            height: 5,
-          ),
-          Text('Payed By : $dPayee'),
-          SizedBox(
-            height: 5,
-          ),
-          Text('Date : $dDate'),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            Text(
+              'Item : $dTitle',
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold,color: Colors.white),
+            ),
+            SizedBox(
+              height: 5,
+            ),
+            Text('Amount : $dAmount',style: TextStyle(color: Colors.white,fontSize: 16),),
+            SizedBox(
+              height: 5,
+            ),
+            Text('Payed By : $dPayee',style: TextStyle(color: Colors.white),),
+            SizedBox(
+              height: 5,
+            ),
+            Text('Date : $dDate',style: TextStyle(color: Colors.white),),
+          ],
+        ),
       ),
     );
   }

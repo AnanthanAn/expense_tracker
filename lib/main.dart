@@ -8,9 +8,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+          primaryColor: Colors.brown,
+          accentColor: Colors.brown,
+          scaffoldBackgroundColor: Colors.white),
       title: 'Expense Tracker',
       home: MainPage(),
     );
   }
 }
-
