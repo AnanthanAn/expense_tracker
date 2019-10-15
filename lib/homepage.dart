@@ -95,7 +95,7 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(controller: amountController,
+            child: TextField(controller: amountController,keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   icon: Icon(Icons.attach_money,color: Colors.brown,),
                   border: OutlineInputBorder(),

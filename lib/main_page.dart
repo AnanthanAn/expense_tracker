@@ -1,6 +1,7 @@
 import 'package:expense_tracker/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 final firestore = Firestore.instance.collection('data');
 
@@ -9,22 +10,16 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-
 class _MainPageState extends State<MainPage> {
-  //double totalAmount = 0;
-
+  String total;
   @override
   void initState() {
     super.initState();
-
-
   }
-//
-//  void updateTotal(ammount) async{
-//    await setState(() {
-//
-//    });
-//  }
+
+  void getTotal(ammount) {
+    Alert(context: context, title: "Total", desc: "$total").show();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +39,8 @@ class _MainPageState extends State<MainPage> {
           StreamBuilder<QuerySnapshot>(
             stream: firestore.snapshots(),
             builder: (context, snapshot) {
-
               List<DataItem> dataText = [];
+              double totalAmount = 0;
               final dataCollection = snapshot.data.documents;
               for (var data in dataCollection) {
                 final payee = data.data['payee'];
@@ -53,10 +48,10 @@ class _MainPageState extends State<MainPage> {
                 final title = data.data['title'];
                 final date = data.data['date'];
 
-                //totalAmount += double.parse(ammount);
-
-                print(payee);
-                //print(totalAmount);
+                totalAmount += double.parse(ammount);
+                total = totalAmount.toString();
+                //print(payee);
+                print(totalAmount);
 
                 final textWidget = DataItem(
                   dTitle: title,
@@ -77,6 +72,11 @@ class _MainPageState extends State<MainPage> {
               );
             },
           ),
+          RaisedButton(color: Colors.brown,
+              onPressed: () {
+                getTotal(total);
+              },
+              child: Text('View Total',style: TextStyle(color: Colors.white),)),
           Center(child: Text('Version 0.2 (Beta) \n     © Ananthan')),
         ],
       ),
@@ -94,7 +94,8 @@ class DataItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(color: Colors.brown,
+    return Card(
+      color: Colors.brown,
       elevation: 5,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -102,20 +103,32 @@ class DataItem extends StatelessWidget {
           children: <Widget>[
             Text(
               'Item : $dTitle',
-              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold,color: Colors.white),
+              style: TextStyle(
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
             ),
             SizedBox(
               height: 5,
             ),
-            Text('Amount : $dAmount',style: TextStyle(color: Colors.white,fontSize: 16),),
+            Text(
+              'Amount : $dAmount',
+              style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
             SizedBox(
               height: 5,
             ),
-            Text('Payed By : $dPayee',style: TextStyle(color: Colors.white),),
+            Text(
+              'Payed By : $dPayee',
+              style: TextStyle(color: Colors.white),
+            ),
             SizedBox(
               height: 5,
             ),
-            Text('Date : $dDate',style: TextStyle(color: Colors.white),),
+            Text(
+              'Date : $dDate',
+              style: TextStyle(color: Colors.white),
+            ),
           ],
         ),
       ),

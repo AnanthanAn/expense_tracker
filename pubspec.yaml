@@ -27,6 +27,7 @@ dependencies:
   cloud_firestore: ^0.12.9+4
   intl: ^0.16.0
   toast: ^0.1.5
+  rflutter_alert: ^1.0.3
 
 dev_dependencies:
   flutter_test:
