@@ -118,8 +118,8 @@ class _HomePageState extends State<HomePage> {
                 child: Text('Save',style: TextStyle(color: Colors.white),),
                 color: Colors.brown,
                 onPressed: () {
-                  if((title == null || title =='') && (amount == null || amount == '')){
-                    Toast.show('Enter something', context,duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
+                  if((title == null || title =='') || (amount == null || amount == '')){
+                    Toast.show('Enter valid data', context,duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
                   }else{
                     documentReference.add({
                       'payee': dropDownSelected,
