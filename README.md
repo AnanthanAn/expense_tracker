@@ -1,6 +1,8 @@
 # expense_tracker
 
-A new Flutter application.
+A new Flutter application to keep track of the expenses when you are sharing Flat/Apartment with your friends.
+
+Designed to make our life easier .
 
 ## Getting Started
 
