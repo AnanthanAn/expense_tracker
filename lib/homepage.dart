@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
                   ),
                   elevation: 10,
                   icon: Icon(
-                    Icons.account_balance_wallet,
+                    Icons.arrow_drop_down_circle,
                     size: 30,
                     color: Colors.brown
                   ),
@@ -118,7 +118,7 @@ class _HomePageState extends State<HomePage> {
                 child: Text('Save',style: TextStyle(color: Colors.white),),
                 color: Colors.brown,
                 onPressed: () {
-                  if((title == null || title =='') || (amount == null || amount == '')){
+                  if((title == null || title =='') || (amount == null || amount == '' || (double.tryParse(amount) == null))){
                     Toast.show('Enter valid data', context,duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
                   }else{
                     documentReference.add({

@@ -1,7 +1,9 @@
 import 'package:expense_tracker/homepage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 final firestore = Firestore.instance.collection('data');
 
@@ -72,12 +74,44 @@ class _MainPageState extends State<MainPage> {
               );
             },
           ),
-          RaisedButton(color: Colors.brown,
-              onPressed: () {
-                getTotal(total);
-              },
-              child: Text('View Total',style: TextStyle(color: Colors.white),)),
-          Center(child: Text('Version 0.2 (Beta) \n     © Ananthan')),
+          Row(
+            children: <Widget>[
+              SizedBox(
+                width: 20,
+              ),
+              RaisedButton(
+                  color: Colors.brown,
+                  onPressed: () {
+                    Alert(
+                        context: context,
+                        title: 'Sherikkum ?',
+                        desc: 'Onnude aalojichu nokkikke',
+                        buttons: [
+                          DialogButton(child: Text('Yep'), onPressed: (){
+                            firestore.document('data').delete();
+                          }),
+                        ]).show();
+
+                  },
+                  child: Text(
+                    'Delete All',
+                    style: TextStyle(color: Colors.white),
+                  )),
+              SizedBox(
+                width: 20,
+              ),
+              RaisedButton(
+                  color: Colors.brown,
+                  onPressed: () {
+                    getTotal(total);
+                  },
+                  child: Text(
+                    'View Total',
+                    style: TextStyle(color: Colors.white),
+                  )),
+            ],
+          ),
+          Center(child: Text('Version 0.2.1 (Beta) \n     © Ananthan')),
         ],
       ),
     );
@@ -96,38 +130,66 @@ class DataItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: Colors.brown,
-      elevation: 5,
+      elevation: 7,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: <Widget>[
-            Text(
-              'Item : $dTitle',
-              style: TextStyle(
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.shoppingBasket, color: Colors.white),
+                    Text(
+                      ' $dTitle',
+                      style: TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.rupeeSign, color: Colors.white),
+                    Text(
+                      ' $dAmount',
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                  ],
+                ),
+              ],
             ),
             SizedBox(
               height: 5,
             ),
-            Text(
-              'Amount : $dAmount',
-              style: TextStyle(color: Colors.white, fontSize: 16),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              'Payed By : $dPayee',
-              style: TextStyle(color: Colors.white),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              'Date : $dDate',
-              style: TextStyle(color: Colors.white),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.wallet, color: Colors.white),
+                    Text(
+                      ' $dPayee',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Row(
+                  children: <Widget>[
+                    Icon(FontAwesomeIcons.calendarAlt, color: Colors.white),
+                    Text(
+                      ' $dDate',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ],
         ),
