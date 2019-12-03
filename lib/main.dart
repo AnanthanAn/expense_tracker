@@ -9,8 +9,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-          primaryColor: Colors.brown,
-          accentColor: Colors.brown,
+          primaryColor: Colors.green,
+          primarySwatch:Colors.green ,
+
           scaffoldBackgroundColor: Colors.white),
       title: 'Expense Tracker',
       home: MainPage(),

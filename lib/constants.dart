@@ -4,5 +4,6 @@ const List<String> flatMates = [
   'Jishnu',
   'J K',
   'Deepu',
-  'Vishnu'
+  'Vishnu',
+  'Rahul'
 ];

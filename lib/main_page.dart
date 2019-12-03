@@ -66,11 +66,25 @@ class _MainPageState extends State<MainPage> {
               }
               return Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ListView(
-                    children: dataText,
-                  ),
-                ),
+                    padding: const EdgeInsets.all(8.0),
+                    child: ListView.builder(
+                      itemBuilder: (context, idx) {
+                        return ListTile(
+                          leading: CircleAvatar(radius: 30,
+                            child: Text('₹ ${dataText[idx].dAmount.toString()}',style: TextStyle(fontWeight: FontWeight.bold,),),
+                          ),
+                          title: Text('${dataText[idx].dTitle}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 26),),
+                          subtitle: Text('${dataText[idx].dPayee}',style: TextStyle(fontSize: 16),),
+                          trailing: Text('${dataText[idx].dDate}',style: TextStyle(fontSize: 18),),
+                        );
+                      },
+                      itemCount: dataText.length,
+                    )
+
+//                  ListView(
+//                    children: dataText,
+//                  ),
+                    ),
               );
             },
           ),
@@ -80,18 +94,19 @@ class _MainPageState extends State<MainPage> {
                 width: 20,
               ),
               RaisedButton(
-                  color: Colors.brown,
+                  color: Colors.lightGreen,
                   onPressed: () {
                     Alert(
                         context: context,
                         title: 'Sherikkum ?',
                         desc: 'Onnude aalojichu nokkikke',
                         buttons: [
-                          DialogButton(child: Text('Yep'), onPressed: (){
-                            firestore.document('data').delete();
-                          }),
+                          DialogButton(
+                              child: Text('Yep'),
+                              onPressed: () {
+                                firestore.document('data').delete();
+                              }),
                         ]).show();
-
                   },
                   child: Text(
                     'Delete All',
@@ -101,7 +116,7 @@ class _MainPageState extends State<MainPage> {
                 width: 20,
               ),
               RaisedButton(
-                  color: Colors.brown,
+                  color: Colors.lightGreen,
                   onPressed: () {
                     getTotal(total);
                   },
@@ -118,82 +133,11 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class DataItem extends StatelessWidget {
+class DataItem {
   DataItem({this.dTitle, this.dPayee, this.dAmount, this.dDate, this.dTotal});
   final String dPayee;
   final String dAmount;
   final String dTitle;
   final String dDate;
   final double dTotal;
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      color: Colors.brown,
-      elevation: 7,
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(FontAwesomeIcons.shoppingBasket, color: Colors.white),
-                    Text(
-                      ' $dTitle',
-                      style: TextStyle(
-                          fontSize: 28,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
-                    ),
-                  ],
-                ),
-                Row(
-                  children: <Widget>[
-                    Icon(FontAwesomeIcons.rupeeSign, color: Colors.white),
-                    Text(
-                      ' $dAmount',
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Row(
-                  children: <Widget>[
-                    Icon(FontAwesomeIcons.wallet, color: Colors.white),
-                    Text(
-                      ' $dPayee',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Row(
-                  children: <Widget>[
-                    Icon(FontAwesomeIcons.calendarAlt, color: Colors.white),
-                    Text(
-                      ' $dDate',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }

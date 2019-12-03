@@ -37,7 +37,6 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense Tracker'),
-        backgroundColor: Colors.brown,
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,11 +56,8 @@ class _HomePageState extends State<HomePage> {
                     fontSize: 30,
                   ),
                   elevation: 10,
-                  icon: Icon(
-                    Icons.arrow_drop_down_circle,
-                    size: 30,
-                    color: Colors.brown
-                  ),
+                  icon: Icon(Icons.arrow_drop_down_circle,
+                      size: 30, color: Colors.green),
                   //hint: Text('Payed by'),
                   //iconEnabledColor: Colors.white,
                   onChanged: (value) {
@@ -79,9 +75,13 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(controller: titleController,
+            child: TextField(
+              controller: titleController,
               decoration: InputDecoration(
-                icon: Icon(Icons.shopping_cart,color: Colors.brown,),
+                icon: Icon(
+                  Icons.shopping_cart,
+                  color: Colors.green,
+                ),
                 border: OutlineInputBorder(),
                 labelText: 'Title',
               ),
@@ -95,9 +95,14 @@ class _HomePageState extends State<HomePage> {
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TextField(controller: amountController,keyboardType: TextInputType.number,
+            child: TextField(
+              controller: amountController,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                  icon: Icon(Icons.attach_money,color: Colors.brown,),
+                  icon: Icon(
+                    Icons.attach_money,
+                    color: Colors.green,
+                  ),
                   border: OutlineInputBorder(),
                   labelText: 'Amount'),
               onChanged: (value) {
@@ -108,35 +113,47 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 10,
           ),
-          Center(child: Text('Date : '+new DateFormat.yMMMd().format(new DateTime.now()).toString(),style: TextStyle(fontSize: 16),)),
+          Center(
+              child: Text(
+            'Date : ' +
+                new DateFormat.yMMMd().format(new DateTime.now()).toString(),
+            style: TextStyle(fontSize: 16),
+          )),
           SizedBox(
             height: 10,
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: RaisedButton(
-                child: Text('Save',style: TextStyle(color: Colors.white),),
-                color: Colors.brown,
+                child: Text(
+                  'Save',
+                  style: TextStyle(color: Colors.white),
+                ),
+                color: Colors.green,
                 onPressed: () {
-                  if((title == null || title =='') || (amount == null || amount == '' || (double.tryParse(amount) == null))){
-                    Toast.show('Enter valid data', context,duration: Toast.LENGTH_SHORT,gravity: Toast.CENTER);
-                  }else{
+                  if ((title == null || title == '') ||
+                      (amount == null ||
+                          amount == '' ||
+                          (double.tryParse(amount) == null))) {
+                    Toast.show('Enter valid data', context,
+                        duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+                  } else {
                     documentReference.add({
                       'payee': dropDownSelected,
                       'title': title,
                       'ammount': amount,
-                      'date': new DateFormat.yMMMd().format(new DateTime.now()).toString()
-                    }).whenComplete((){
+                      'date': new DateFormat.yMMMd()
+                          .format(new DateTime.now())
+                          .toString()
+                    }).whenComplete(() {
                       titleController.clear();
                       amountController.clear();
 
-                      Toast.show("Added Successfully", context, duration: Toast.LENGTH_SHORT, gravity:  Toast.CENTER);
-
-
+                      Toast.show("Added Successfully", context,
+                          duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
+                      Navigator.pop(context);
                     });
                   }
-
-
                 }),
           ),
         ],
