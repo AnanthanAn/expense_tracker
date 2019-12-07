@@ -12,9 +12,11 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String selectedDate = DateFormat.yMMMd().format(DateTime.now()).toString();
   String dropDownSelected = 'Ananthu';
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+
   String title;
   String amount;
   final CollectionReference documentReference =
@@ -34,6 +36,8 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Expense Tracker'),
@@ -113,12 +117,36 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 10,
           ),
-          Center(
-              child: Text(
-            'Date : ' +
-                new DateFormat.yMMMd().format(new DateTime.now()).toString(),
-            style: TextStyle(fontSize: 16),
-          )),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Center(
+                child: Text(
+                  selectedDate,
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+              FlatButton(
+                onPressed: () {
+                  showDatePicker(
+                      context: context,
+                      initialDate: DateTime.now().toLocal(),
+                      firstDate: DateTime.utc(2019),
+                      lastDate: DateTime.now()).then((pickedDate){
+                        setState(() {
+                          selectedDate = DateFormat.yMMMd().format(pickedDate).toString();
+                          print(selectedDate);
+                        });
+                  });
+                },
+                child: Text(
+                  'Choose Date',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.green),
+                ),
+              ),
+            ],
+          ),
           SizedBox(
             height: 10,
           ),
@@ -142,9 +170,7 @@ class _HomePageState extends State<HomePage> {
                       'payee': dropDownSelected,
                       'title': title,
                       'ammount': amount,
-                      'date': new DateFormat.yMMMd()
-                          .format(new DateTime.now())
-                          .toString()
+                      'date': selectedDate
                     }).whenComplete(() {
                       titleController.clear();
                       amountController.clear();
