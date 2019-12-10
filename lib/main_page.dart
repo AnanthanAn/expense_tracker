@@ -71,7 +71,10 @@ class _MainPageState extends State<MainPage> {
                       itemBuilder: (context, idx) {
                         return ListTile(
                           leading: CircleAvatar(radius: 30,
-                            child: Text('₹ ${dataText[idx].dAmount.toString()}',style: TextStyle(fontWeight: FontWeight.bold,),),
+                            child:Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: FittedBox(child: Text('₹ ${dataText[idx].dAmount.toString()}',style: TextStyle(fontWeight: FontWeight.bold,),)),
+                            ),
                           ),
                           title: Text('${dataText[idx].dTitle}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 26),),
                           subtitle: Text('${dataText[idx].dPayee}',style: TextStyle(fontSize: 16),),
