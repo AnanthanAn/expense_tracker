@@ -1,7 +1,7 @@
 //import 'package:cloud_firestore/cloud_firestore.dart';
 //import 'package:expense_log/expense_item.dart';
 import 'package:flutter/material.dart';
-import 'constants.dart';
+import '../models/constants.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';

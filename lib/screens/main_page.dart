@@ -1,4 +1,4 @@
-import 'package:expense_tracker/homepage.dart';
+import 'package:expense_tracker/screens/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   void getTotal(ammount) {
-    Alert(context: context, title: "Total", desc: "$total").show();
+    Alert(context: context, title: "Total", desc: total.toString()).show();
   }
 
   @override
@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
                 final date = data.data['date'];
 
                 totalAmount += double.parse(ammount);
-                total = totalAmount.toString();
+                total = totalAmount.toStringAsFixed(2);
                 //print(payee);
                 print(totalAmount);
 
