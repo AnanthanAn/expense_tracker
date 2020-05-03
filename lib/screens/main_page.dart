@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:expense_tracker/models/data_item.dart';
 
 final firestore = Firestore.instance.collection('data');
 
@@ -136,11 +136,3 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class DataItem {
-  DataItem({this.dTitle, this.dPayee, this.dAmount, this.dDate, this.dTotal});
-  final String dPayee;
-  final String dAmount;
-  final String dTitle;
-  final String dDate;
-  final double dTotal;
-}
