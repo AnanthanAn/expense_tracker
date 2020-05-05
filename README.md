@@ -1,7 +1,7 @@
 # expense_tracker
 
 A new Flutter application to keep track of the expenses when you are sharing Flat/Apartment with your friends.
-
+Keep track of spendings easily. Simple UI make use of Firebase Cloud Firestore database
 Designed to make our life easier .
 
 ## Getting Started
