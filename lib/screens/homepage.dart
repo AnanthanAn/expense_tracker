@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   String dropDownSelected = 'Ananthu';
   final titleController = TextEditingController();
   final amountController = TextEditingController();
+  var isSubmitting = false;
 
   String title;
   String amount;
@@ -42,7 +43,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: Text('Expense Tracker'),
       ),
-      body: Column(
+      body: isSubmitting ? Center(child: CircularProgressIndicator(),): Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
@@ -166,6 +167,9 @@ class _HomePageState extends State<HomePage> {
                     Toast.show('Enter valid data', context,
                         duration: Toast.LENGTH_SHORT, gravity: Toast.CENTER);
                   } else {
+                    setState(() {
+                      isSubmitting = true;
+                    });
                     documentReference.add({
                       'payee': dropDownSelected,
                       'title': title,
@@ -186,4 +190,11 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+  @override
+  void dispose() {
+    titleController.dispose(); //disposing controllers to prevent memory leaks and improve performance.
+    amountController.dispose();
+    super.dispose();
+  }
+
 }
