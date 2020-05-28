@@ -38,7 +38,7 @@ class _MainPageState extends State<MainPage> {
       body: Column(
         children: <Widget>[
           StreamBuilder<QuerySnapshot>(
-            stream: firestore.snapshots(),
+            stream: firestore.orderBy('date').snapshots(),
             builder: (context, snapshot) {
               List<DataItem> dataText = [];
               double totalAmount = 0;
