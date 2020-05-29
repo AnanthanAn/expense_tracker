@@ -1,4 +1,5 @@
-import 'package:expense_tracker/screens/homepage.dart';
+import 'package:expense_tracker/screens/add_txns.dart';
+import 'package:expense_tracker/widgets/list_item.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -31,19 +32,20 @@ class _MainPageState extends State<MainPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(
-              context, MaterialPageRoute(builder: (context) => HomePage()));
+              context, MaterialPageRoute(builder: (context) => AddTxnScreen()));
         },
         child: Icon(Icons.add),
       ),
       body: Column(
         children: <Widget>[
           StreamBuilder<QuerySnapshot>(
-            stream: firestore.orderBy('date').snapshots(),
+            stream: firestore.orderBy('id').snapshots(),
             builder: (context, snapshot) {
               List<DataItem> dataText = [];
               double totalAmount = 0;
               final dataCollection = snapshot.data.documents;
               for (var data in dataCollection) {
+                final id = data.data['id'];
                 final payee = data.data['payee'];
                 final String ammount = data.data['ammount'];
                 final title = data.data['title'];
@@ -55,6 +57,7 @@ class _MainPageState extends State<MainPage> {
                 print(totalAmount);
 
                 final textWidget = DataItem(
+                  dId:  id,
                   dTitle: title,
                   dAmount: ammount,
                   dPayee: payee,
@@ -68,17 +71,12 @@ class _MainPageState extends State<MainPage> {
                     padding: const EdgeInsets.all(8.0),
                     child: ListView.builder(
                       itemBuilder: (context, idx) {
-                        return ListTile(
-                          leading: CircleAvatar(radius: 30,
-                            child:Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: FittedBox(child: Text('₹ ${dataText[idx].dAmount.toString()}',style: TextStyle(fontWeight: FontWeight.bold,),)),
-                            ),
-                          ),
-                          title: Text('${dataText[idx].dTitle}',style: TextStyle(fontWeight: FontWeight.bold,fontSize: 26),),
-                          subtitle: Text('${dataText[idx].dPayee}',style: TextStyle(fontSize: 16),),
-                          trailing: Text('${dataText[idx].dDate}',style: TextStyle(fontSize: 18),),
-                        );
+                        return ListTileItem(
+                          id: dataText[idx].dId,
+                            title: dataText[idx].dTitle,
+                            amount: dataText[idx].dAmount,
+                            payee: dataText[idx].dPayee,
+                            date: dataText[idx].dDate);
                       },
                       itemCount: dataText.length,
                     )
@@ -134,4 +132,3 @@ class _MainPageState extends State<MainPage> {
     );
   }
 }
-

@@ -6,12 +6,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:toast/toast.dart';
 
-class HomePage extends StatefulWidget {
+class AddTxnScreen extends StatefulWidget {
   @override
-  _HomePageState createState() => _HomePageState();
+  _AddTxnScreenState createState() => _AddTxnScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _AddTxnScreenState extends State<AddTxnScreen> {
   String selectedDate = DateFormat.yMMMd().format(DateTime.now()).toString();
   String dropDownSelected = 'Ananthu';
   final titleController = TextEditingController();
@@ -170,7 +170,9 @@ class _HomePageState extends State<HomePage> {
                     setState(() {
                       isSubmitting = true;
                     });
-                    documentReference.add({
+                    var docId = DateTime.now().toString();
+                    documentReference.document(docId).setData({
+                      'id' : docId,
                       'payee': dropDownSelected,
                       'title': title,
                       'ammount': amount,
