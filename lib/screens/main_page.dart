@@ -126,7 +126,7 @@ class _MainPageState extends State<MainPage> {
                   )),
             ],
           ),
-          Center(child: Text('Version 0.2.1 (Beta) \n     © Ananthan')),
+          Center(child: Text('Version 1.1.0 (Beta) \n     © Ananthan')),
         ],
       ),
     );

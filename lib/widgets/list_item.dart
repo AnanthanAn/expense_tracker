@@ -19,7 +19,10 @@ class ListTileItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Dismissible(
       key: ValueKey(id),
-      background: Container(
+      background: Container(child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(Icons.delete,color: Colors.white70,size: 30,),
+      ),alignment: Alignment.centerRight,
         color: Colors.redAccent,
       ),
       direction: DismissDirection.endToStart,onDismissed:(_){
