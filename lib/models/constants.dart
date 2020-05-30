@@ -1,3 +1,4 @@
+
 const List<String> flatMates = [
   'Ananthu',
   'Rohit',
@@ -9,3 +10,10 @@ const List<String> flatMates = [
   'Tony',
   'Alwin'
 ];
+//
+//void getAndSetUsers(BuildContext ctx) async{
+//  FutureBuilder(builder: (ctx,snapshot){
+//    print(snapshot.data);
+//    return ;
+//  },future: Firestore.instance.collection('users').getDocuments(),);
+//}
